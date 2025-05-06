@@ -43,6 +43,55 @@ rolls <- replicate(100,roll())
 qplot(rolls,binwidth = 1)
 
 ?sample
-#trial
 
+#Atomic Vector
+#  An atomic vector is just a simple vector of data.
+
+#R recognizes six basic types of atomic vectors:
+#doubles, integers, characters, logicals, complex, and raw
+
+#Double
+#A double vector stores regular numbers. The numbers can be positive or negative, large
+#or small, and have digits to the right of the decimal place or not
+die <- 1:6
+class(die) # "integer"
+typeof(die) # "integer"
+
+die2 <- c(1,2,3,4,5,6)
+class(die2) # "numeric"
+typeof(die2)# "double"
+
+#Some R functions refer to doubles as “numerics,” and I will often do the same. Double
+#is a computer science term. It refers to the specific number of bytes your computer uses
+#to store a number
+sqrt(2)^2 - 2
+
+# Integer
+#Integer vectors store integers, numbers that can be written without a decimal compo
+# nent.
+int <- c(-1L, 2L, 4L)
+int
+class(int) # "integer"
+typeof(int) # "integer"
+
+# Character
+
+# A character vector stores small pieces of text. You can create a character vector in R by
+#typing a character or string of characters surrounded by quotes:
+
+text <- c("Hello",  "World")
+text
+
+#Logicals
+# Logical vectors store TRUEs and FALSEs, R’s form of Boolean 
+
+# Complex and Raw
+# Complex vectors store complex numbers. To create a complex vector, add an imaginary
+#term to a number with i:
+
+comp <- c(1 + 1i, 1 + 2i, 1 + 3i)
+comp
+
+#  Raw vectors store raw bytes of data.
+raw(3) #  00 00 00
 
