@@ -42,13 +42,13 @@ qplot(y,x)
 rolls <- replicate(100,roll())
 qplot(rolls,binwidth = 1)
 
-?sample
+ ?sample
 
 #Atomic Vector
 #  An atomic vector is just a simple vector of data.
 
 #R recognizes six basic types of atomic vectors:
-#doubles, integers, characters, logicals, complex, and raw
+#doubles, integers, characters, logical, complex, and raw
 
 #Double
 #A double vector stores regular numbers. The numbers can be positive or negative, large
@@ -81,6 +81,10 @@ typeof(int) # "integer"
 
 text <- c("Hello",  "World")
 text
+length(text)
+is.character(text)
+is.atomic(text)
+is.integer(text)
 
 #Logicals
 # Logical vectors store TRUEs and FALSEs, R’s form of Boolean 
@@ -94,4 +98,122 @@ comp
 
 #  Raw vectors store raw bytes of data.
 raw(3) #  00 00 00
+
+#Attributes
+#An attribute is a piece of information that you can attach to an atomic vector (or any R
+#object)
+#You can think of an attribute as “metadata”; it is just a
+# convenient place to put information associated with an object
+
+attributes(die) ## NULL
+
+# Names
+# The most common attributes to give an atomic vector are names, dimensions (dim)
+# class. Each of these attributes has its own helper function that you can use 
+# to give attributes to  an object
+# You can also use names to change the names attribute or remove it all together
+names(die) # names() is used to look-up name attribute for an object
+
+# To change the names, assign a new set labels to names
+names(die) <- c("one", "two ", "three", "four", "five","six")
+names(die) <- c('uno','dos', "tres","quatro",'cinco',"seis")
+names(die["one"])
+die
+
+# To remove the names attribute, set it to NULL
+names(die) <- NULL
+
+# Dim
+# You can transform an atomic vector into an n-dimensional array by giving it a
+# dimensions attribute with dim
+dim(die) <-c(2,3) # this is a 2 X 3 matrix
+dim(die) <- c(1,2,3)
+die
+
+# Matrices
+# Matrices store values in a two-dimensional array.
+# byrow = TRUE is an argument that fill the matrix row by row if you include it.
+
+m <- matrix(die, nrow = 2, ncol= 3, byrow = TRUE)
+m 
+?matrix
+
+#Arrays
+# The array function creates an n-dimensional array.
+flushCard <- c("ace","king","queen","jack","ten","spades","spades","spades","spades","spades")
+dim(flushCard) <-c(5,2)
+flushCard
+matrix(flushCard, nrow = 5)
+
+# Class
+
+currentTime <-Sys.time()
+currentTime
+typeof(currentTime)
+
+class(currentTime)
+unclass(currentTime)
+
+#Factors
+# Factors are R's way of storing categorical information, like ethnicity or 
+# eye color.
+# Factors make it easy to put categorical variable into a statistical model becos
+# the variables are already coded as numbers.
+gender <- factor(c("male","female","female","male"))
+
+typeof(gender)
+
+attributes(gender)
+
+# you can see exactly how R is storing your factor with unclass
+unclass(gender)
+
+# Card
+card <- c("ace","hearts", 1)
+card
+typeof(card)
+class(card)
+
+#Coercion
+
+
+# List
+#Lists are like atomic vectors because they group data into a one-dimensional set. 
+list1 <- list(100:130, "R", list(TRUE, FALSE))
+list1
+list1[[1]][[23]]
+
+cardList <- list("ace", "hearts",1)
+cardList
+
+# Data Frames
+# Data frames are the two-dimensional version of a list. 
+# Data frames group vectors together into a two-dimensional table. Each vector
+# becomes a column in the table.
+#Data frames store data as a sequence of columns. Each column can be a
+# different data type. Every column in a data frame must be the same length
+
+df <- data.frame(
+  face = c("king", "queen", "jack", "ten", "nine", "eight", "seven", "six",
+           "five", "four", "three", "two", "ace", "king", "queen", "jack", "ten",
+           "nine", "eight", "seven", "six", "five", "four", "three", "two", "ace",
+           "king", "queen", "jack", "ten", "nine", "eight", "seven", "six", "five",
+           "four", "three", "two", "ace", "king", "queen", "jack", "ten", "nine",
+           "eight", "seven", "six", "five", "four", "three", "two", "ace"),
+  suit = c("spades", "spades", "spades", "spades", "spades", "spades",
+           "spades", "spades", "spades", "spades", "spades", "spades", "spades",
+           "clubs", "clubs", "clubs", "clubs", "clubs", "clubs", "clubs", "clubs",
+           "clubs", "clubs", "clubs", "clubs", "clubs", "diamonds", "diamonds",
+           "diamonds", "diamonds", "diamonds", "diamonds", "diamonds", "diamonds",
+           "diamonds", "diamonds", "diamonds", "diamonds", "diamonds", "hearts",
+           "hearts", "hearts", "hearts", "hearts", "hearts", "hearts", "hearts",
+           "hearts", "hearts", "hearts", "hearts", "hearts"),
+  value = c(13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 13, 12, 11, 10, 9, 8,
+            7, 6, 5, 4, 3, 2, 1, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 13, 12, 11,
+            10, 9, 8, 7, 6, 5, 4, 3, 2, 1))
+
+df
+
+# Loading Data
+# name <- read.file_type(path/to/file) file_type can be .csv, .xml, etc
 
