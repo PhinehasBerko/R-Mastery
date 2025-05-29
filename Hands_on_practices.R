@@ -3,6 +3,8 @@
 #load tidyverse library
 library(tidyverse)
 
+library(devtools)
+
 # Functions; is a reusable block of code that performs a specific task
 # function_name <- function(){}
 secobd <- function() {
@@ -317,4 +319,123 @@ median(df$value)
 
 mean(df[["value"]])
 summary(df)
+
+# CHAPTER 5
+# Modifying values
+deck <- df
+head(deck)
+
+# Changing Values in Place
+deck[1,3] <- 13
+deck$new <- NULL
+
+# You can also remove columns from a data frame (and elements from a list) by assigning
+# them the symbol NULL
+deck[c(13,26,39,52),]
+
+# Change values 
+deck$value[c(13,26,39,52)] <-14
+
+# Logical Subsetting
+
+#  Logical Tests and Logical operators
+
+# a > b; a >= b; a == b; a != b; 
+# %in% a %in% c(a, b, c) is a in the group c(a, b, c)?
+
+deck2$face == "ace"
+sum(deck2$face == "ace")
+
+deck2$value[deck2$face == "ace"]
+deck2$value[deck2$face == "ace"] <- 14
+
+#To summarize, you can use a logical test to select values within an object.
+
+# Logical sub-setting is a powerful technique because it lets you quickly identify, extract,
+# and modify individual values in your data set. When you work with logical sub-setting,
+# you do not need to know where in your data set a value exists. You only need to know
+# how to describe the value with a logical test.
+
+# Boolean Operators
+#  Boolean Operators
+# Boolean operators are things like and (&) and or (|). They collapse the 
+# results of multiple logical tests into a single TRUE or FALSE.
+# R has six boolean operators.
+
+# For example;
+
+# &   >> (cond1 & cond2) ==> Are both cond1 and cond2 true?
+# |   >> (cond1 pipe cond2) ==> is one or more of cond1 and cond2 true?
+# xor >> xor(cond1, cond2) ==> is exactly one of cond1 and cond2?
+#!    >> !cond1 ==> is cond1 false? (e.g., ! flips the results of a logical test
+#any  >> any(cond1, cond2, cond3,...) ==> are any of the conditions true?
+#all  >> all(cond1, cond2, ...) ==> are all of the condtions true?
+
+
+# Example
+w <- c(-1,0,1)
+x <- c(5, 15)
+y <- "February"
+z <- c("Monday","Tuesday", "Friday")
+
+all(z %in% c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday",
+             "Saturday", "Sunday"))
+
+# Missing Information
+
+# NA => Not Available; it is used to replace missing data
+
+# na.rm => remove NA is an optional argument in most functions in R
+mean(c(NA, 1:50), na.rm = TRUE)
+
+# is.na => a function that can test whether a value is an NA. 
+is.na(c(NA, 1:6))
+## TRUE FALSE FALSE FALSE FALSE FALSE FALSE
+
+
+# Environment System
+parenvs(all = TRUE)
+as.environment("package:stats")
+as.environment("package:devtools")
+globalenv()
+
+baseenv()
+
+emptyenv()
+
+parent.env(globalenv())
+
+parent.env(emptyenv())
+
+
+#You can view the objects saved in an environment with ls or ls.str. 
+#ls will return just the object names, but ls.str will display a
+#little about each object’s structure
+
+ls(emptyenv())
+
+ls(globalenv())
+
+ls.str(globalenv()) # This will display a little about each object's structure.
+
+#You can use R’s $ syntax to access an object in a specific environment.
+head(globalenv()$deck, 3)
+
+#And you can use the assign function to save an object into a particular environment
+
+# 1st: give assign the name of the new object (as a character string)
+# 2nd: give assign the value of the new object 
+# 3rd: and finally the environment to save the object in
+assign("new","Hello Global", envir = globalenv())
+globalenv()$new
+
+#  You can use environment to see the current active environment:
+environment()
+
+show_env <- function(){
+  list(ran.in.2 = environment(),
+       parent = parent.env(environment()),
+       objects = ls.str(environment()))
+}
+show_env()
 
